@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerThink</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #7f028a;
+            --primary-light: #8d71e0;
+            --primary-dark: #180544;
+            --secondary: #43066b;
+            --accent: #680a34;
+            --light: hsla(303, 78%, 30%, 0.89);
+            --dark: #f453d1;
+            --gray-100: #6b9fee;
+            --gray-200: #dce0e4;
+            --gray-300: #151514;
+            --gray-800: #054461;
+            --success: #44c00b;
+            --error: #720909bf;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 0 10px;
+        }
+
+        .tagline {
+            color: var(--gray-800);
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .app-sections {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .section {
+            background: var(--gray-100);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(213, 72, 72, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(200, 94, 94, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+            display: flex; /* Ensures items inside can be aligned with margin-left: auto */
+            align-items: center;
+        }
+
+        .section-title .icon {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+
+        .input-section {
+            background: white;
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 400;
+            resize: vertical;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+        }
+
+        textarea::placeholder {
+            color: var(--gray-300);
+            font-weight: 300;
+        }
+
+        .file-upload {
+            margin: 20px 0;
+        }
+
+        .file-input-container {
+            position: relative;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .file-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 2px dashed var(--gray-300);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .file-label:hover {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .file-icon {
+            font-size: 26px;
+            margin-right: 15px;
+        }
+
+        input[type="file"] {
+            position: absolute;
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .upload-button {
+            width: 100%;
+        }
+
+        #uploadMessage {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+            height: 0;
+            overflow: hidden;
+        }
+
+        #uploadMessage.visible {
+            opacity: 1;
+            height: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #uploadMessage.success {
+            background-color: rgba(56, 176, 0, 0.1);
+            border-left: 4px solid var(--success);
+            color: var(--success);
+        }
+
+        #uploadMessage.error {
+            background-color: rgba(208, 0, 0, 0.1);
+            border-left: 4px solid var(--error);
+            color: var(--error);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .action-button {
+            background-color: white;
+            color: var(--dark);
+            border: 2px solid var(--gray-200);
+            padding: 20px 15px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            height: 100px;
+        }
+
+        .action-button:hover {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-button .icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .output-container {
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .output-header {
+            background: var(--gray-100);
+            padding: 15px 20px;
+            border-radius: 12px 12px 0 0;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        #output {
+            margin-top: 0;
+            text-align: left;
+            white-space: normal;
+            word-wrap: break-word;
+            padding: 25px;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            font-family: inherit;
+            border: 1px solid var(--gray-200);
+            border-top: none;
+            min-height: 150px;
+            transition: all 0.3s ease;
+            line-height: 1.8;
+            color: var(--gray-800);
+        }
+
+        #output:empty {
+            min-height: 0;
+            border: none;
+        }
+
+        #output:empty+.output-header {
+            display: none;
+        }
+
+        #output li {
+            margin-left: 25px;
+            list-style-type: disc;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        #output li::marker {
+            color: var(--primary);
+        }
+
+        #output b {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(67, 97, 238, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(67, 97, 238, 0);
+            }
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .feature .feature-icon {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        /* Feature cards section */
+        .features-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .features-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: rgb(141, 165, 238);
+            border-radius: 16px;
+            padding: 30px 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            color:#8d71e0;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+            color:#8d71e0;
+        }
+
+        .feature-icon-large {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .feature-description {
+            color: var(--gray-800);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--gray-800);
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        /* --- Specific Styles for text-primary and RateUs --- */
+        .text-primary {
+            color: var(--primary-dark); /* Correctly sets text color */
+        }
+
+        .RateUs {
+            color: var(--primary);
+            font-size: 0.9rem; /* Adjusted font size */
+            font-weight: 600;
+            margin-left: auto; /* Pushes the element to the far right within a flex container */
+            padding: 5px 10px; /* Added padding for better visual spacing */
+            background-color: var(--gray-200); /* Added background for clear visibility */
+            border-radius: 8px; /* Rounded corners for the background */
+            cursor: pointer; /* Indicates it's clickable */
+            transition: all 0.2s ease;
+        }
+
+        .RateUs:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+        /* --- End of Specific Styles for text-primary and RateUs --- */
+
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 20px auto;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .action-button {
+                flex-direction: row;
+                height: auto;
+                padding: 15px;
+            }
+
+            .action-button .icon {
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animation effects */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .animate-delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        .animate-delay-4 {
+            animation-delay: 0.4s;
+        }
+
+        .animate-delay-5 {
+            animation-delay: 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="animate-in">
+            <h1><span class="logo-text">CareerThink</span></h1>
+            <p class="tagline"> Explore Your Potential With
+                <span class="text-primary">AI-Driven Resume Insights</span></p>
+        </header>
+
+        <div class="app-sections">
+            <div class="section input-section animate-in animate-delay-1">
+                <div class="section-title">
+                    <span class="icon">📝</span> Job Description
+                    <span class="RateUs">Rate Us ⭐</span>
+                </div>
+                <textarea id="jobDescription"
+                    placeholder="Paste the job description here to analyze the match with your resume..."></textarea>
+            </div>
+
+            <div class="section animate-in animate-delay-2">
+                <div class="section-title">
+                    <span class="icon">📄</span> Your Resume
+                </div>
+
+                <div class="file-upload">
+                    <div class="file-input-container">
+                        <label for="resume" class="file-label">
+                            <span class="file-icon">📄</span>
+                            <span>Choose your resume (PDF)</span>
+                        </label>
+                        <input type="file" id="resume" accept=".pdf">
+                    </div>
+                    <button class="btn btn-primary upload-button" onclick="uploadResume()">
+                        Upload Resume
+                    </button>
+                </div>
+
+                <div id="uploadMessage"></div>
+            </div>
+
+            <div class="section animate-in animate-delay-3">
+                <div class="section-title">
+                    <span class="icon">✨</span> Analysis Options
+                </div>
+
+                <div class="buttons">
+                    <button class="action-button" onclick="getResponse('about_resume')">
+                        <span class="icon">📄</span>
+                        Resume Evaluation
+                    </button>
+                    <button class="action-button" onclick="getResponse('keywords')">
+                        <span class="icon">🔑</span>
+                        Missing Keywords
+                    </button>
+                    <button class="action-button" onclick="getResponse('percentage_match')">
+                        <span class="icon">📊</span>
+                        Match Percentage
+                    </button>
+                </div>
+            </div>
+
+            <div class="output-container animate-in animate-delay-3">
+                <div class="output-header">Results</div>
+                <div id="output"></div>
+            </div>
+
+            <div class="features-section animate-in animate-delay-4">
+                <h2 class="features-title">Why Choose CareerThink?</h2>
+
+                <div class="features-grid">
+                    <div class="feature-card animate-in animate-delay-1">
+                        <div class="feature-icon-large">🎯</div>
+                        <h3 class="feature-title">AI-Powered Matching</h3>
+                        <p class="feature-description">Our advanced algorithms analyze your resume against job
+                            descriptions to identify the perfect fit and maximize your chances.</p>
+                    </div>
+
+                    <div class="feature-card animate-in animate-delay-2">
+                        <div class="feature-icon-large">⚡</div>
+                        <h3 class="feature-title">Instant Analysis</h3>
+                        <p class="feature-description">Get immediate feedback on how well your resume matches the job
+                            description with detailed insights in seconds.</p>
+                    </div>
+
+                    <div class="feature-card animate-in animate-delay-3">
+                        <div class="feature-icon-large">🔍</div>
+                        <h3 class="feature-title">Keyword Optimization</h3>
+                        <p class="feature-description">Discover missing keywords and skills that could significantly
+                            improve your resume's visibility to recruiters.</p>
+                    </div>
+
+                    <div class="feature-card animate-in animate-delay-4">
+                        <div class="feature-icon-large">📈</div>
+                        <h3 class="feature-title">Match Score</h3>
+                        <p class="feature-description">Get a clear percentage match score to understand exactly how
+                            competitive your application is for each position.</p>
+                    </div>
+
+                    <div class="feature-card animate-in animate-delay-5">
+                        <div class="feature-icon-large">🛡️</div>
+                        <h3 class="feature-title">Private & Secure</h3>
+                        <p class="feature-description">Your data is encrypted and never shared with third parties. We
+                            prioritize your privacy and security.</p>
+                    </div>
+
+                    <div class="feature-card animate-in animate-delay-5">
+                        <div class="feature-icon-large">💼</div>
+                        <h3 class="feature-title">Career Insights</h3>
+                        <p class="feature-description">Receive personalized suggestions to improve your resume for
+                            specific job roles and industries.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 JobMatchr- Boost your job application success</p>
+        </footer>
+    </div>
+
+    <script>
+        function uploadResume() {
+            let file = document.getElementById("resume").files[0];
+            let formData = new FormData();
+            formData.append("resume", file);
+
+            // Show loading state
+            let messageDiv = document.getElementById("uploadMessage");
+            messageDiv.innerHTML = "Uploading your resume...";
+            messageDiv.className = "visible";
+
+            fetch("https://ashish-kharde1-jobmatchr.hf.space/upload", { method: "POST", body: formData })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        // ✅ Show success message in green
+                        messageDiv.innerHTML = "✅ " + data.message;
+                        messageDiv.className = "visible success";
+                    } else {
+                        // ❌ Show error message in red
+                        messageDiv.innerHTML = "❌ " + data.error;
+                        messageDiv.className = "visible error";
+                    }
+                })
+                .catch(error => {
+                    messageDiv.innerHTML = "❌ Error uploading file";
+                    messageDiv.className = "visible error";
+                });
+        }
+
+        function getResponse(endpoint) {
+            let jobDescription = document.getElementById("jobDescription").value;
+
+            // Show loading in output
+            let outputDiv = document.getElementById("output");
+            outputDiv.innerHTML = "Analyzing...";
+
+            fetch("https://ashish-kharde1-jobmatchr.hf.space/" + endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ job_description: jobDescription })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    outputDiv.innerHTML = parseMarkdown(data.response || data.error);
+                })
+                .catch(error => {
+                    outputDiv.innerHTML = "Error processing request";
+                });
+        }
+
+        // Function to convert Markdown to HTML
+        function parseMarkdown(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // Bold -> <b>text</b>
+                .replace(/\*(.*?)\*/g, "<li>$1</li>") // Bullet points -> <li>text</li>
+                .replace(/\n\n/g, "<br><br>") // Double newline -> Paragraph break
+                .replace(/\n/g, "<br>"); // Single newline -> Line break
+        }
+
+        // Add a visual indicator when file is selected
+        document.getElementById('resume').addEventListener('change', function (e) {
+            const fileName = e.target.files[0]?.name;
+            const label = document.querySelector('.file-label');
+
+            if (fileName) {
+                label.innerHTML = `<span class="file-icon">📄</span> ${fileName}`;
+                label.classList.add('pulse-animation');
+                setTimeout(() => {
+                    label.classList.remove('pulse-animation');
+                }, 2000);
+            } else {
+                label.innerHTML = `<span class="file-icon">📄</span> Choose your resume (PDF)`;
+            }
+        });
+
+        // Make sure the output section is hidden when empty
+        window.addEventListener('DOMContentLoaded', () => {
+            const output = document.getElementById('output');
+            const outputHeader = document.querySelector('.output-header');
+            if (!output.innerHTML.trim()) {
+                outputHeader.style.display = 'none';
+            } else {
+                outputHeader.style.display = 'block'; // Ensure it's shown if there's content on load
+            }
+        });
+    </script>
+</body>
+
+</html>
